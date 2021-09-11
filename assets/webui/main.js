@@ -27,6 +27,7 @@ var app = new Vue({
     },
     setName: function () {
       console.log(app.name)
+      console.log(apiURL)
       API.setName(app.name).
         then(function (result) {
           app.message = result

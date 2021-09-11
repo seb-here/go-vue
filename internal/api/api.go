@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
-	"github.com/mfmayer/go-vue/internal/log"
+	"github.com/seb-here/go-vue/internal/log"
 )
 
 func titlePrefix(w http.ResponseWriter, r *http.Request) {

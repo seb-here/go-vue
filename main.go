@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi"
-	"github.com/mfmayer/go-vue/internal/api"
-	"github.com/mfmayer/go-vue/internal/log"
-	"github.com/mfmayer/go-vue/internal/vfs/vfswebui"
+	"github.com/seb-here/go-vue/internal/api"
+	"github.com/seb-here/go-vue/internal/log"
+	"github.com/seb-here/go-vue/internal/vfs/vfswebui"
 )
 
 //go:generate go run internal/vfs/generate_vfswebui.go
@@ -18,7 +18,7 @@ func installFileServer(router chi.Router, path string, root http.FileSystem) err
 		return fmt.Errorf("FileServer does not permit URL parameters")
 	}
 	if path != "/" && path[len(path)-1] != '/' {
-		router.Get(path, http.RedirectHandler(path+"/", 301).ServeHTTP)
+		router.Get(path, http.RedirectHandler(path+"/", http.StatusMovedPermanently).ServeHTTP)
 		path += "/"
 	}
 	fs := http.StripPrefix(path, http.FileServer(root))
@@ -35,7 +35,7 @@ func main() {
 	router := chi.NewRouter()
 
 	router.Route("/api/", api.InstallAPI)
-	router.Get("/", http.RedirectHandler("/ui/", 301).ServeHTTP)
+	router.Get("/", http.RedirectHandler("/ui/", http.StatusMovedPermanently).ServeHTTP)
 	if err := installFileServer(router, "/ui", vfswebui.FileSystem); err != nil {
 		panic(err)
 	}

@@ -37,6 +37,7 @@ function InitAPI (apiURL) {
   const API = {
 
     getTitlePrefix: function () {
+      console.log(apiURL)
       return getJSON(apiURL + "titlePrefix").then(function (response) {
         if (response.title != null) {
           return response.title
@@ -46,6 +47,7 @@ function InitAPI (apiURL) {
     },
 
     getVersion: function () {
+      console.log(apiURL)
       return getJSON(apiURL + "version").then(function (response) {
         if (response.version != null) {
           return response.version
